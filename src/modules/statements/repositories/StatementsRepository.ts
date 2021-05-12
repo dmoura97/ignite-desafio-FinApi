@@ -13,6 +13,18 @@ export class StatementsRepository implements IStatementsRepository {
     this.repository = getRepository(Statement);
   }
 
+  async setTransferId(id: string, transfer_id: string): Promise<void> {
+    await this.repository
+    .createQueryBuilder()
+    .update()
+    .set({
+      transfer_id
+    })
+    .where("id = :id")
+    .setParameters({id})
+    .execute();
+  }
+
   async create({
     user_id,
     amount,
